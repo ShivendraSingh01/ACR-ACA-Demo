@@ -10,6 +10,7 @@ COPY package*.json next.config.ts postcss.config.cjs tailwind.config.ts tsconfig
 COPY app ./app
 COPY components ./components
 COPY lib ./lib
+COPY public ./public
 RUN npm run build
 
 FROM node:22-alpine AS runner
