@@ -4,7 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 const app = express();
-const port = Number(process.env.PORT ?? 8000);
+const port = Number(process.env.PORT ?? 8080);
 const serviceName = process.env.SERVICE_NAME ?? "acr-aca-backend";
 const revision = process.env.CONTAINER_APP_REVISION ?? process.env.REVISION ?? "local";
 const region = process.env.AZURE_REGION ?? process.env.REGION ?? "local";

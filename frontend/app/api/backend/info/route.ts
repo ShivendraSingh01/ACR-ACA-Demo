@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const backendUrl = process.env.BACKEND_URL ?? "http://localhost:8000";
+  const backendUrl = process.env.BACKEND_URL ?? "http://localhost:8080";
 
   try {
     const backendResponse = await fetch(`${backendUrl}/api/info`, {
