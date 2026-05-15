@@ -36,25 +36,35 @@ jobs:
       - name: Ensure Container Apps CLI extension
         run: az extension add --name containerapp --upgrade
 
-      # - name: Validate target Container Apps
-      #   run: |
-      #     echo "Container Apps in resource group '${{ vars.AZURE_RESOURCE_GROUP }}':"
-      #     az containerapp list \
-      #       --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
-      #       --query "[].{name:name, location:location}" \
-      #       --output table
+      - name: Debug Azure target
+        run: |
+          az account show \
+            --query "{subscription:id, tenant:tenantId, name:name}" \
+            --output table
 
-      #     az containerapp show \
-      #       --name "${{ vars.BACKEND_CONTAINER_APP }}" \
-      #       --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
-      #       --query name \
-      #       --output tsv >/dev/null
+          echo "Resource group: ${{ vars.AZURE_RESOURCE_GROUP }}"
+          echo "Backend app:    ${{ vars.BACKEND_CONTAINER_APP }}"
+          echo "Frontend app:   ${{ vars.FRONTEND_CONTAINER_APP }}"
 
-      #     az containerapp show \
-      #       --name "${{ vars.FRONTEND_CONTAINER_APP }}" \
-      #       --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
-      #       --query name \
-      #       --output tsv >/dev/null
+          echo "Container Apps visible in resource group '${{ vars.AZURE_RESOURCE_GROUP }}':"
+          az containerapp list \
+            --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
+            --query "[].{name:name, resourceGroup:resourceGroup, location:location}" \
+            --output table
+
+      - name: Validate target Container Apps
+        run: |
+          az containerapp show \
+            --name "${{ vars.BACKEND_CONTAINER_APP }}" \
+            --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
+            --query name \
+            --output tsv >/dev/null
+
+          az containerapp show \
+            --name "${{ vars.FRONTEND_CONTAINER_APP }}" \
+            --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
+            --query name \
+            --output tsv >/dev/null
 
       - name: Build and push backend image
         run: |
