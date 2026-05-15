@@ -36,25 +36,25 @@ jobs:
       - name: Ensure Container Apps CLI extension
         run: az extension add --name containerapp --upgrade
 
-      - name: Validate target Container Apps
-        run: |
-          echo "Container Apps in resource group '${{ vars.AZURE_RESOURCE_GROUP }}':"
-          az containerapp list \
-            --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
-            --query "[].{name:name, location:location}" \
-            --output table
+      # - name: Validate target Container Apps
+      #   run: |
+      #     echo "Container Apps in resource group '${{ vars.AZURE_RESOURCE_GROUP }}':"
+      #     az containerapp list \
+      #       --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
+      #       --query "[].{name:name, location:location}" \
+      #       --output table
 
-          az containerapp show \
-            --name "${{ vars.BACKEND_CONTAINER_APP }}" \
-            --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
-            --query name \
-            --output tsv >/dev/null
+      #     az containerapp show \
+      #       --name "${{ vars.BACKEND_CONTAINER_APP }}" \
+      #       --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
+      #       --query name \
+      #       --output tsv >/dev/null
 
-          az containerapp show \
-            --name "${{ vars.FRONTEND_CONTAINER_APP }}" \
-            --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
-            --query name \
-            --output tsv >/dev/null
+      #     az containerapp show \
+      #       --name "${{ vars.FRONTEND_CONTAINER_APP }}" \
+      #       --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
+      #       --query name \
+      #       --output tsv >/dev/null
 
       - name: Build and push backend image
         run: |
