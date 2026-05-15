@@ -111,7 +111,7 @@ export function Dashboard() {
               <div className="rounded-md bg-muted p-4">
                 <div className="text-sm font-medium text-muted-foreground">Backend URL</div>
                 <code className="mt-1 block break-all text-sm text-foreground">
-                  {backend?.backendUrl ?? "http://localhost:8080"}
+                  {backend?.backendUrl ?? "http://localhost:8000"}
                 </code>
               </div>
 
@@ -200,4 +200,3 @@ function Detail({ label, value }: { label: string; value?: string }) {
     </div>
   );
 }
-
